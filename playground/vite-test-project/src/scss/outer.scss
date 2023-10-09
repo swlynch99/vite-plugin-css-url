@@ -1,0 +1,7 @@
+
+@import './inner.scss';
+
+.outer {
+    @extend .inner;
+    color: #FF00FF
+}

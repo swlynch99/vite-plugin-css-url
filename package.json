@@ -7,6 +7,9 @@
   "keywords": [
     "vite-plugin"
   ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch"
@@ -17,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^20.8.4",
     "tsup": "^7.2.0",
+    "typescript": "^5.2.2",
     "vite": "^4.4.11"
   },
   "peerDependencies": {

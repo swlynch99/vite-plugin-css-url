@@ -1,0 +1,12 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "skipLibCheck": true,
+
+        "moduleResolution": "Bundler",
+        "noEmit": true
+    }
+}

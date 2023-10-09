@@ -8,7 +8,7 @@ const postfixRE = /[?#].*$/s
 
 const debug = createDebugger(PLUGIN_NAME);
 
-export default function plugin(): Plugin {
+export function ViteCompiledUrlPlugin(): Plugin {
     let config: ResolvedConfig | undefined
 
     return {

@@ -15,9 +15,10 @@
     "dev": "tsup src/index.ts --watch"
   },
   "dependencies": {
-    "debug": "^4.3.4"
+    "dedent": "^1.5.1"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.9",
     "@types/node": "^20.8.4",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",

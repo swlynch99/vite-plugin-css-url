@@ -5,11 +5,14 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  debug:
-    specifier: ^4.3.4
-    version: 4.3.4
+  dedent:
+    specifier: ^1.5.1
+    version: 1.5.1
 
 devDependencies:
+  '@types/debug':
+    specifier: ^4.1.9
+    version: 4.1.9
   '@types/node':
     specifier: ^20.8.4
     version: 20.8.4
@@ -274,6 +277,16 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@types/debug@4.1.9:
+    resolution: {integrity: sha512-8Hz50m2eoS56ldRlepxSBa6PWEVCtzUo/92HgLc2qTMnotJNIm7xP+UZhyWoYsyOdd5dxZ+NZLb24rsKyFs2ow==}
+    dependencies:
+      '@types/ms': 0.7.32
+    dev: true
+
+  /@types/ms@0.7.32:
+    resolution: {integrity: sha512-xPSg0jm4mqgEkNhowKgZFBNtwoEwF6gJ4Dhww+GFpm3IgtNseHQZ5IqdNwnquZEoANxyDAKDRAdVo4Z72VvD/g==}
+    dev: true
+
   /@types/node@20.8.4:
     resolution: {integrity: sha512-ZVPnqU58giiCjSxjVUESDtdPk4QR5WQhhINbc9UBrKLU68MX5BF6kbQzTrkwbolyr0X8ChBpXfavr5mZFKZQ5A==}
     dependencies:
@@ -378,6 +391,16 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+    dev: true
+
+  /dedent@1.5.1:
+    resolution: {integrity: sha512-+LxW+KLWxu3HW3M2w2ympwtqPrqYRzU8fqi6Fhd18fBALe15blJPI/I4+UHveMVG6lJqB4JNd4UG0S5cnVHwIg==}
+    peerDependencies:
+      babel-plugin-macros: ^3.1.0
+    peerDependenciesMeta:
+      babel-plugin-macros:
+        optional: true
+    dev: false
 
   /dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
@@ -609,6 +632,7 @@ packages:
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+    dev: true
 
   /mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}

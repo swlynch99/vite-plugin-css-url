@@ -4,7 +4,6 @@ import VitePluginInspect from 'vite-plugin-inspect';
 
 export default defineConfig({
     build: {
-        assetsInlineLimit: 0,
         rollupOptions: {
             plugins: [
                 ViteCompiledUrlPlugin(),

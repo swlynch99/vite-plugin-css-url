@@ -1,7 +1,19 @@
-import './scss/inner.scss';
-import styles from './scss/outer.scss?compiled-url';
+import styles from './scss/outer.scss?css-url';
 
-async function updateBody() {
+if (import.meta.hot) {
+  import.meta.hot.accept('./scss/outer.scss?css-url', (module: any) => {
+    const styles = module.default;
+
+    if (typeof styles !== "string") {
+      import.meta.hot?.invalidate();
+      return;
+    }
+
+    updateBody(styles);
+  })
+}
+
+async function updateBody(styles: string) {
   let response = await fetch(styles);
   let content = await response.text();
 
@@ -11,4 +23,4 @@ async function updateBody() {
   `
 }
 
-updateBody();
+updateBody(styles);

@@ -1,12 +1,12 @@
 import { defineConfig } from "vite";
-import { ViteCompiledUrlPlugin } from 'vite-plugin-compiled-url';
+import { ViteCssUrlPlugin } from 'vite-plugin-compiled-url';
 import VitePluginInspect from 'vite-plugin-inspect';
 
 export default defineConfig({
     build: {
         rollupOptions: {
             plugins: [
-                ViteCompiledUrlPlugin(),
+                ViteCssUrlPlugin(),
             ]
         }
     },
@@ -15,6 +15,6 @@ export default defineConfig({
             outputDir: 'node_modules/.vite-inspect',
             build: true,
         }),
-        ViteCompiledUrlPlugin(),
+        ViteCssUrlPlugin(),
     ]
 })

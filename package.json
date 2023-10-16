@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-compiled-url",
+  "name": "vite-plugin-css-url",
   "version": "0.1.0",
   "description": "",
   "license": "MIT",
@@ -14,9 +14,7 @@
     "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch"
   },
-  "dependencies": {
-    "dedent": "^1.5.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/debug": "^4.1.9",
     "@types/node": "^20.8.4",

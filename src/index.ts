@@ -71,7 +71,11 @@ export function ViteCssUrlPlugin(): Plugin {
             const relativeTarget = relativeId(targetId);
 
             if (config.command === "serve") {
-                // 
+                // In serve mode we just return `<id>?direct` and use the `t=...`
+                // parameter to ensure the response is not cached.
+                //
+                // handleHotUpdate takes care of propagating HMR updates from
+                // the target module to this one.
 
                 let targetUrl = appendQueryParams(relativeTarget, 'direct', `t=${Date.now()}`);
                 return `export default ${JSON.stringify(targetUrl)};`;

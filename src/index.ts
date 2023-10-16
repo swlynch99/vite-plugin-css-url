@@ -62,7 +62,7 @@ export function ViteCssUrlPlugin(): Plugin {
         },
 
         async load(id) {
-            if (!urlParamRE.test(id))
+            if (!urlParamRE.test(id) || id.startsWith('\0'))
                 return;
 
             id = removeQueryParams(id, URL_PARAM);

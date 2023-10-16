@@ -1,4 +1,4 @@
-import type { ModuleNode, Plugin, PluginOption, ResolvedConfig, ViteDevServer } from "vite";
+import type { ModuleNode, Plugin, ResolvedConfig, ViteDevServer } from "vite";
 import path from "path";
 
 const PLUGIN_NAME = 'vite-plugin-compiled-url';

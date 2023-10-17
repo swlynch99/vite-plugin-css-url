@@ -61,7 +61,7 @@ function ViteCssUrlPlugin(): Plugin {
             if (!pluginNameRE.test(id))
                 return;
 
-            id = removeQueryParams(id, PLUGIN_NAME);
+            id = removeQueryParams(id, PLUGIN_NAME, 'used');
 
             const targetId = mapQueryUrl(id, url => stripSuffix(url, '.js'));
             const relativeTarget = relativeId(targetId);
@@ -84,7 +84,8 @@ function ViteCssUrlPlugin(): Plugin {
                 // - Finally, we emit a rollup constant that evaluates to a URL
                 //   to the asset from step 2.
 
-                const targetUrl = appendQueryParams(targetId, 'inline');
+                // ?used is required otherwise vite will generate an empty file
+                const targetUrl = appendQueryParams(targetId, 'used', 'inline');
                 const target = await this.load({ id: targetUrl });
 
                 let assetName = path.basename(cleanUrl(targetId))

@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Sean Lynch <sean@lynches.ca>",
   "keywords": [
+    "vite",
     "vite-plugin"
   ],
   "exports": {

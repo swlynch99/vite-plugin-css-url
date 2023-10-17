@@ -1,22 +1,21 @@
-import type { ModuleNode, Plugin, ResolvedConfig, ViteDevServer } from "vite";
+import type { ModuleNode, Plugin, ResolvedConfig } from "vite";
 import path from "path";
 
-const PLUGIN_NAME = 'vite-plugin-compiled-url';
-const URL_PARAM = 'css-url';
+const PLUGIN_NAME = 'vite-plugin-css-url';
 
 function makeUrlParamRE(text: string): RegExp {
     return new RegExp(`(\\?|&)${text}(?:&|$)`);
 }
 
-const urlParamRE = makeUrlParamRE(URL_PARAM)
+const urlParamRE = makeUrlParamRE('url')
+const pluginNameRE = makeUrlParamRE(PLUGIN_NAME);
 const directRE = makeUrlParamRE('direct')
 const postfixRE = /[?#].*$/s
 const stripCssExtRE = /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)$/
 const cssLangsRE = /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/
 
-export function ViteCssUrlPlugin(): Plugin {
+function ViteCssUrlPlugin(): Plugin {
     let config: ResolvedConfig | undefined
-    let server: ViteDevServer | undefined
 
     function relativeId(id: string): string {
         return id.startsWith(config!.root)
@@ -32,18 +31,13 @@ export function ViteCssUrlPlugin(): Plugin {
             config = resolved;
         },
 
-        configureServer(_server) {
-            server = _server;
-        },
-
         async resolveId(source, importer, options) {
-            if (!urlParamRE.test(source))
+            if (!urlParamRE.test(source)) // ignore imports without ?url
                 return;
-            if (!cssLangsRE.test(source)) {
-                this.error(`?css-url imports can only be used with css files`);
-            }
+            if (!cssLangsRE.test(source)) // ignore non-css imports
+                return;
 
-            const target = removeQueryParams(source, URL_PARAM);
+            const target = removeQueryParams(source, 'url');
             const resolution = await this.resolve(target, importer, options);
 
             if (!resolution || resolution.external)
@@ -51,7 +45,7 @@ export function ViteCssUrlPlugin(): Plugin {
 
             let resolvedId = appendQueryParams(
                 mapQueryUrl(resolution.id, url => url + '.js'),
-                URL_PARAM,
+                PLUGIN_NAME,
             );
 
             return {
@@ -62,10 +56,12 @@ export function ViteCssUrlPlugin(): Plugin {
         },
 
         async load(id) {
-            if (!urlParamRE.test(id) || id.startsWith('\0'))
+            if (id.startsWith('\0')) // rollup convention
+                return;
+            if (!pluginNameRE.test(id))
                 return;
 
-            id = removeQueryParams(id, URL_PARAM);
+            id = removeQueryParams(id, PLUGIN_NAME);
 
             const targetId = mapQueryUrl(id, url => stripSuffix(url, '.js'));
             const relativeTarget = relativeId(targetId);
@@ -110,9 +106,9 @@ export function ViteCssUrlPlugin(): Plugin {
 
         /**
          * Manually propagate HMR updates from `<file.css>?direct` modules to
-         * the compiled `<file.css.js>?css-url` files.
+         * the compiled `<file.css.js>?url` files.
          * 
-         * The problem we have with this extension is that `file.css.js?css-url`
+         * The problem we have with this extension is that `file.css.js?url`
          * has a HMR dependency on `file.css?direct` but rollup doesn't know
          * about this dependency. We resolve this by manually scanning for
          * the relevant dependency whenever we get a HMR update.
@@ -121,6 +117,8 @@ export function ViteCssUrlPlugin(): Plugin {
             const moduleGraph = ctx.server.moduleGraph;
             const seen = new Set();
             const stack: ModuleNode[] = [];
+
+            console.dir(ctx);
 
             for (const module of ctx.modules) {
                 if (module.id) {
@@ -135,16 +133,20 @@ export function ViteCssUrlPlugin(): Plugin {
                 }
             }
 
+            console.dir(stack);
+
             while (stack.length !== 0) {
                 let module = stack.pop();
 
+                console.log(`[module id] ${module.id}`)
+
                 // Whenever we get a ?direct module check to see if there is a
-                // corresponding ?css-url module. If so, tell the dev server to
-                // reload the ?css-url module.
+                // corresponding ?url module. If so, tell the dev server to
+                // reload the ?url module.
                 if (directRE.test(module.id)) {
                     const strippedId = removeQueryParams(module.id, 'direct');
                     const jsId = mapQueryUrl(strippedId, url => url + '.js');
-                    const targetId = appendQueryParams(jsId, URL_PARAM);
+                    const targetId = appendQueryParams(jsId, PLUGIN_NAME);
 
                     const targetModule = moduleGraph.getModuleById(targetId);
                     if (targetModule) {
@@ -158,7 +160,7 @@ export function ViteCssUrlPlugin(): Plugin {
                 // need to propagate through them manually.
                 if (module.isSelfAccepting)
                     continue;
-                
+
                 for (const importer of module.importers) {
                     if (seen.has(importer.id))
                         continue;
@@ -170,6 +172,8 @@ export function ViteCssUrlPlugin(): Plugin {
         },
     };
 }
+
+export default ViteCssUrlPlugin;
 
 function cleanUrl(url: string): string {
     return url.replace(postfixRE, '')
@@ -203,12 +207,6 @@ function mapQueryUrl(url: string, func: (url: string) => string): string {
     let params = query ? query.split('&') : [];
 
     return appendQueryParams(func(baseurl), ...params);
-}
-
-function stripPrefix(str: string, pattern: string): string {
-    if (str.startsWith(pattern))
-        return str.substring(pattern.length);
-    return str;
 }
 
 function stripSuffix(str: string, pattern: string): string {

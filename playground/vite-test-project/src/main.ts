@@ -1,7 +1,7 @@
-import styles from './scss/outer.scss?css-url';
+import styles from './scss/outer.scss?url';
 
 if (import.meta.hot) {
-  import.meta.hot.accept('./scss/outer.scss?css-url', (module: any) => {
+  import.meta.hot.accept('./scss/outer.scss?url', (module: any) => {
     const styles = module.default;
 
     if (typeof styles !== "string") {

@@ -14,9 +14,9 @@ devDependencies:
   vite:
     specifier: ^4.4.5
     version: 4.4.11(sass@1.69.0)
-  vite-plugin-compiled-url:
-    specifier: link:../../
-    version: link:../..
+  vite-plugin-css-url:
+    specifier: file:../../
+    version: file:../..(vite@4.4.11)
   vite-plugin-inspect:
     specifier: ^0.7.40
     version: 0.7.40(vite@4.4.11)
@@ -811,4 +811,14 @@ packages:
     hasBin: true
     dependencies:
       isexe: 2.0.0
+    dev: true
+
+  file:../..(vite@4.4.11):
+    resolution: {directory: ../.., type: directory}
+    id: file:../..
+    name: vite-plugin-css-url
+    peerDependencies:
+      vite: ^4.0.0
+    dependencies:
+      vite: 4.4.11(sass@1.69.0)
     dev: true

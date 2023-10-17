@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import { ViteCssUrlPlugin } from 'vite-plugin-compiled-url';
+import ViteCssUrlPlugin from 'vite-plugin-css-url';
 import VitePluginInspect from 'vite-plugin-inspect';
 
 export default defineConfig({

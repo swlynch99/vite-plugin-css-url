@@ -1,24 +1,26 @@
 {
   "name": "vite-plugin-css-url",
   "version": "0.1.0",
-  "description": "",
+  "description": "Make ?url imports work for css in vite",
   "license": "MIT",
   "author": "Sean Lynch <sean@lynches.ca>",
   "keywords": [
     "vite-plugin"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "files": [
-    "/dist",
-    "/client.d.ts"
+    "/dist"
   ],
   "scripts": {
     "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/debug": "^4.1.9",
     "@types/node": "^20.8.4",

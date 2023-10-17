@@ -4,10 +4,14 @@
   "description": "Make ?url imports work for css in vite",
   "license": "MIT",
   "author": "Sean Lynch <sean@lynches.ca>",
+  "repository": {
+    "url": "https://github.com/swlynch99/vite-plugin-css-url"
+  },
   "keywords": [
     "vite",
     "vite-plugin"
   ],
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

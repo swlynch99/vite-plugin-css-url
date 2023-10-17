@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-css-url",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Make ?url imports work for css in vite",
   "license": "MIT",
   "author": "Sean Lynch <sean@lynches.ca>",

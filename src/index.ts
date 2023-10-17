@@ -118,8 +118,6 @@ function ViteCssUrlPlugin(): Plugin {
             const seen = new Set();
             const stack: ModuleNode[] = [];
 
-            console.dir(ctx);
-
             for (const module of ctx.modules) {
                 if (module.id) {
                     stack.push(module);
@@ -132,8 +130,6 @@ function ViteCssUrlPlugin(): Plugin {
                     seen.add(file.id || file.file);
                 }
             }
-
-            console.dir(stack);
 
             while (stack.length !== 0) {
                 let module = stack.pop();

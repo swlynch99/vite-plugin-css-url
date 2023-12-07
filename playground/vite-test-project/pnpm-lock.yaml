@@ -818,7 +818,7 @@ packages:
     id: file:../..
     name: vite-plugin-css-url
     peerDependencies:
-      vite: ^4.0.0
+      vite: '>=4.0.0 <6.0.0'
     dependencies:
       vite: 4.4.11(sass@1.69.0)
     dev: true

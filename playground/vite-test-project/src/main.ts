@@ -20,6 +20,7 @@ async function updateBody(styles: string) {
   document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <p>The bundled CSS content is</p>
   <pre>${content}</pre>
+  <p>and its URL is <code>${styles}</code></p>
   `
 }
 

@@ -98,10 +98,9 @@ function ViteCssUrlPlugin(): Plugin {
                     type: 'asset',
                     name: assetName,
                     source: content,
-                    needsCodeReference: true
                 });
 
-                return `export default import.meta.ROLLUP_FILE_URL_${referenceId}`
+                return `export default "__VITE_ASSET__${referenceId}__";`
             }
         },
 
